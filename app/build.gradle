@@ -19,6 +19,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', "ApiKey", movie_catalogue_api_key
+            resValue 'string', "api_key", movie_catalogue_api_key
         }
     }
     compileOptions {
