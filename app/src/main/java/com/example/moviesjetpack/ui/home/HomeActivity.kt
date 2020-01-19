@@ -1,6 +1,8 @@
 package com.example.moviesjetpack.ui.home
 
+import android.graphics.Movie
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -10,36 +12,49 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.moviesjetpack.R
+import com.example.moviesjetpack.data.MoviesEntity
+import com.example.moviesjetpack.data.MoviesEntityResponse
+import com.example.moviesjetpack.data.MoviesServices
+import com.example.moviesjetpack.data.Repository
 import com.example.moviesjetpack.ui.movies.MoviesFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.internal.schedulers.IoScheduler
+import io.reactivex.schedulers.Schedulers
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeActivity : AppCompatActivity() {
 
     private val SELECTED_MENU = "selected_menu"
     var navView: BottomNavigationView? = null
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        var fragment: Fragment? = null
+
+    private val mOnNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            var fragment: Fragment? = null
 
 
-        if (item.itemId == R.id.action_home) {
-            fragment = MoviesFragment.newInstance()
-        }else{
-            fragment = MoviesFragment.newInstance()
-        }
+            if (item.itemId == R.id.action_home) {
+                fragment = MoviesFragment.newInstance()
+            } else {
+                fragment = MoviesFragment.newInstance()
+            }
 //        else if (item.itemId == R.id.action_bookmark) {
 //            fragment = BookmarkFragment.newInstance()
 //        }
 
-        if (fragment != null) {
-            supportFragmentManager
-                .beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .replace(R.id.container, fragment)
-                .commit()
-        }
+            if (fragment != null) {
+                supportFragmentManager
+                    .beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .replace(R.id.container, fragment)
+                    .commit()
+            }
 
-        true
-    }
+            true
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,15 +63,33 @@ class HomeActivity : AppCompatActivity() {
 
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        if(savedInstanceState!=null)
+        if (savedInstanceState != null)
             savedInstanceState.getInt(SELECTED_MENU)
         else
             navView.selectedItemId = R.id.action_home
 
-    }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt(SELECTED_MENU, navView!!.getSelectedItemId())
+        // get post data
+        val movieServices = Repository.create()
+        movieServices.getPosts().enqueue(object : Callback<MoviesEntityResponse> {
+
+            override fun onResponse(
+                call: Call<MoviesEntityResponse>,
+                response: Response<MoviesEntityResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val data = response.body()?.getResults()
+                    Log.d("tag", "responsennya ${data?.size}")
+
+                    data?.map {
+                        Log.d("tag", "datanya ${it.toString()}")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<MoviesEntityResponse>, error: Throwable) {
+                Log.e("tag", "errornya ${error.message}")
+            }
+        })
     }
 }

@@ -2,12 +2,22 @@ package com.example.moviesjetpack.data
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 
 data class MoviesEntity (
+    @SerializedName("id")
     var id: String?,
+
+    @SerializedName("title")
     var title: String?,
+
+    @SerializedName("overview")
     var overview: String?,
+
+    @SerializedName("release_date")
     var release_date: String?,
+
+    @SerializedName("poster_path")
     var poster_path: String?
 
 ): Parcelable {
