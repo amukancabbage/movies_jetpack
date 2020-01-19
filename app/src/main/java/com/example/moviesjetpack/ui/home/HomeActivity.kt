@@ -69,27 +69,5 @@ class HomeActivity : AppCompatActivity() {
             navView.selectedItemId = R.id.action_home
 
 
-        // get post data
-        val movieServices = Repository.create()
-        movieServices.getPosts().enqueue(object : Callback<MoviesEntityResponse> {
-
-            override fun onResponse(
-                call: Call<MoviesEntityResponse>,
-                response: Response<MoviesEntityResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val data = response.body()?.getResults()
-                    Log.d("tag", "responsennya ${data?.size}")
-
-                    data?.map {
-                        Log.d("tag", "datanya ${it.toString()}")
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<MoviesEntityResponse>, error: Throwable) {
-                Log.e("tag", "errornya ${error.message}")
-            }
-        })
     }
 }

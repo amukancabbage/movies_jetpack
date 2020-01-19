@@ -12,7 +12,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.moviesjetpack.R
 import com.example.moviesjetpack.data.MoviesEntity
 import com.example.moviesjetpack.utils.GlideApp
-import java.util.ArrayList
+
 
 
 
@@ -26,11 +26,11 @@ class MoviesAdapter(): RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>()  {
         return mMovies
     }
 
-    fun setListMovies(listMovies: ArrayList<MoviesEntity>){
+    fun setListMovies(listMovies: ArrayList<MoviesEntity>?){
 //        if (listMovies == null) return
 //        this.mMovies.clear()
 //        this.mMovies.addAll(listMovies)
-        this.mMovies = listMovies
+        this.mMovies = listMovies!!
 
     }
 

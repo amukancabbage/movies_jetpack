@@ -7,9 +7,9 @@ import com.google.gson.annotations.SerializedName
 
 class MoviesEntityResponse {
     @SerializedName("results")
-    private val results: List<MoviesEntity>? = null
+    private val results: ArrayList<MoviesEntity>? = null
 
-    fun getResults() : List<MoviesEntity>?{
+    fun getResults() : ArrayList<MoviesEntity>?{
         return results
     }
 
