@@ -1,7 +1,8 @@
 package com.example.moviesjetpack.ui.movies
 
 import android.app.Activity
-import android.content.Intent
+import android.os.Parcel
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,33 +15,29 @@ import com.example.moviesjetpack.data.MoviesEntity
 import com.example.moviesjetpack.utils.GlideApp
 
 
-
-
-class MoviesAdapter(): RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>()  {
+class MoviesAdapter() : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>(), Parcelable {
     private var activity : Activity?=null
     private var mMovies = ArrayList<MoviesEntity>()
 
-    constructor(activity: Activity):this(){this.activity = activity}
+    constructor(parcel: Parcel) : this() {
+
+    }
+
+    constructor(activity: Activity):this(){
+        this.activity = activity
+
+    }
 
     fun getListMovies(): List<MoviesEntity>{
         return mMovies
     }
 
-    fun setListMovies(listMovies: ArrayList<MoviesEntity>?){
-//        if (listMovies == null) return
-//        this.mMovies.clear()
-//        this.mMovies.addAll(listMovies)
-        this.mMovies = listMovies!!
+    fun setListMovies(listMovies: ArrayList<MoviesEntity>){
+        mMovies.clear()
+        mMovies.addAll(listMovies)
+        notifyDataSetChanged()
 
     }
-
-//    private var listMovies: List<MoviesEntity>?
-//        get() = mMovies
-//        internal set(listMovies) {
-//            if (listMovies == null) return
-//            this.mMovies.clear()
-//            this.mMovies.addAll(listMovies)
-//        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
         val view =
@@ -51,7 +48,6 @@ class MoviesAdapter(): RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>()  {
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
         holder.tvTitle.setText(getListMovies().get(position).title)
         holder.tvDescription.setText(getListMovies().get(position).overview)
-//        holder.tvDate.text = String.format("Deadline %s", listMovies.get(position).getDeadline())
         holder.itemView.setOnClickListener { v ->
 //            val intent = Intent(activity, DetailCourseActivity::class.java)
 //            intent.putExtra(
@@ -82,6 +78,24 @@ class MoviesAdapter(): RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>()  {
             imgPoster = itemView.findViewById(R.id.img_poster)
             tvDescription = itemView.findViewById(R.id.tv_item_description)
             tvDate = itemView.findViewById(R.id.tv_item_date)
+        }
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<MoviesAdapter> {
+        override fun createFromParcel(parcel: Parcel): MoviesAdapter {
+            return MoviesAdapter(parcel)
+        }
+
+        override fun newArray(size: Int): Array<MoviesAdapter?> {
+            return arrayOfNulls(size)
         }
     }
 }
