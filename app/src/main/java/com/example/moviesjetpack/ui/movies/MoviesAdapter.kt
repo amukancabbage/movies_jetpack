@@ -1,6 +1,7 @@
 package com.example.moviesjetpack.ui.movies
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.Log
@@ -9,87 +10,54 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.moviesjetpack.R
-import com.example.moviesjetpack.data.MoviesEntity
-import com.example.moviesjetpack.utils.GlideApp
+import com.example.moviesjetpack.model.MoviesEntity
+import com.example.moviesjetpack.databinding.ItemsMoviesBinding
 
 
 class MoviesAdapter() : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>(), Parcelable {
-    private var activity : Activity?=null
     private var mMovies = ArrayList<MoviesEntity>()
+    private lateinit var viewModel: MoviesViewModel
 
     constructor(parcel: Parcel) : this() {
 
     }
 
-    constructor(activity: Activity):this(){
-        this.activity = activity
 
-    }
-
-    fun getListMovies(): List<MoviesEntity>{
-        return mMovies
-    }
-
-    fun setListMovies(listMovies: ArrayList<MoviesEntity>){
-        mMovies.clear()
-        mMovies.addAll(listMovies)
-        notifyDataSetChanged()
+    constructor(mMovies: ArrayList<MoviesEntity>,viewModel: MoviesViewModel):this(){
+        this.mMovies = mMovies
+        this.viewModel = viewModel
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.items_movies, parent, false)
-        return MoviesViewHolder(view)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        var binding : ItemsMoviesBinding = DataBindingUtil.inflate(layoutInflater,R.layout.items_movies,parent,false)
+        return MoviesViewHolder(binding)
+
     }
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
 
-//        Glide.with(holder.itemView.context)
-//            .load(getListMovies().get(position).poster_path)
-//            .error(ContextCompat.getDrawable(getApp, R.drawable.no_img))
-//            .apply(RequestOptions().override(350, 550))
-//            .into(holder.imgPoster)
-
-        holder.tvTitle.setText(getListMovies().get(position).title)
-        holder.tvDescription.setText(getListMovies().get(position).overview)
-        holder.itemView.setOnClickListener { v ->
-//            val intent = Intent(activity, DetailCourseActivity::class.java)
-//            intent.putExtra(
-//                DetailCourseActivity.EXTRA_COURSE,
-//                listMovies.get(position).getCourseId()
-//            )
-//            activity.startActivity(intent)
-        }
-
-        Log.d("poster",getListMovies().get(position).poster_path)
-
-        Glide.with(holder.itemView.context)
-            .load(getListMovies().get(position).poster_path)
-//            .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
-            .into(holder.imgPoster)
+        var moviesEntity:MoviesEntity=mMovies.get(position)
+        holder.setBinding(moviesEntity, viewModel)
     }
 
     override fun getItemCount(): Int {
-        return getListMovies().size
+        return mMovies.size
     }
 
-    inner class MoviesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvTitle: TextView
-        var tvDescription: TextView
-        var tvDate: TextView
-        var imgPoster: ImageView
 
-        init {
-            tvTitle = itemView.findViewById(R.id.tv_item_title)
-            imgPoster = itemView.findViewById(R.id.img_poster)
-            tvDescription = itemView.findViewById(R.id.tv_item_description)
-            tvDate = itemView.findViewById(R.id.tv_item_date)
+    inner class MoviesViewHolder constructor(val binding: ItemsMoviesBinding) : RecyclerView.ViewHolder(binding.root){
+
+        fun setBinding(moviesEntity: MoviesEntity,moviesViewModel: MoviesViewModel){
+            binding.movieEntity = moviesEntity
+            binding.imageUrl = moviesEntity.poster_path
+            binding.viewModel = moviesViewModel
         }
     }
 

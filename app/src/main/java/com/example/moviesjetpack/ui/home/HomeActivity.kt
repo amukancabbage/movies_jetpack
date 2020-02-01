@@ -1,29 +1,13 @@
 package com.example.moviesjetpack.ui.home
 
-import android.graphics.Movie
 import android.os.Bundle
-import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.moviesjetpack.R
-import com.example.moviesjetpack.data.MoviesEntity
-import com.example.moviesjetpack.data.MoviesEntityResponse
-import com.example.moviesjetpack.data.MoviesServices
-import com.example.moviesjetpack.data.Repository
 import com.example.moviesjetpack.ui.movies.MoviesFragment
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.internal.schedulers.IoScheduler
-import io.reactivex.schedulers.Schedulers
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.moviesjetpack.ui.movies.TvFragment
 
 class HomeActivity : AppCompatActivity() {
 
@@ -33,13 +17,13 @@ class HomeActivity : AppCompatActivity() {
 
     private val mOnNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
-            var fragment: Fragment? = null
+            var fragment: Fragment?
 
 
             if (item.itemId == R.id.action_home) {
-                fragment = MoviesFragment.newInstance(true)
+                fragment = MoviesFragment.newInstance()
             } else {
-                fragment = MoviesFragment.newInstance(isMovies = false)
+                fragment = TvFragment.newInstance()
             }
 //        else if (item.itemId == R.id.action_bookmark) {
 //            fragment = BookmarkFragment.newInstance()

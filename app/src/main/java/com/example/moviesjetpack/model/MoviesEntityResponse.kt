@@ -1,6 +1,5 @@
-package com.example.moviesjetpack.data
+package com.example.moviesjetpack.model
 
-import java.util.HashMap
 import com.google.gson.annotations.SerializedName
 
 

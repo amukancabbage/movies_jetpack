@@ -10,59 +10,56 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MoviesViewModel : ViewModel() {
+class TvViewModel : ViewModel() {
 
-    private val listMovies = MutableLiveData<ArrayList<MoviesEntity>>()
-    lateinit var moviesNavigator : MoviesNavigator
-
-    fun setNavigator(moviesNavigator: MoviesNavigator){
-        this.moviesNavigator = moviesNavigator
+    companion object {
+        private const val API_KEY = "794813bc026f6d6aa4f7e8bf2317313e"
     }
 
-    internal fun getMoviesLiveData(): LiveData<ArrayList<MoviesEntity>> {
-        return listMovies
+    private val listTv = MutableLiveData<ArrayList<TvEntity>>()
+
+
+    internal fun getTvLiveData(): LiveData<ArrayList<TvEntity>> {
+        return listTv
     }
 
-    internal fun setMoviesLiveData() {
 
-        val listItems= ArrayList<MoviesEntity>()
+    internal fun setTvLiveData() {
+
+        val listItems= ArrayList<TvEntity>()
         val movieServices = Repository.create()
 
-        movieServices.getPosts().enqueue(object : Callback<MoviesEntityResponse> {
+        movieServices.getPostsTv().enqueue(object : Callback<TvEntityResponse> {
 
             override fun onResponse(
-                call: Call<MoviesEntityResponse>,
-                response: Response<MoviesEntityResponse>
+                call: Call<TvEntityResponse>,
+                response: Response<TvEntityResponse>
             ) {
                 if (response.isSuccessful) {
                     val data = response.body()?.getResults()
 
                     data?.map {
-                        val movieItems = MoviesEntity(
+                        val movieItems = TvEntity(
                             it.id,
-                            it.title,
+                            it.name,
                             it.overview,
-                            it.release_date,
+                            it.first_air_date,
                             "https://image.tmdb.org/t/p/w500" + it.poster_path,
                             "https://image.tmdb.org/t/p/w500" + it.backdrop_path
                         )
                         listItems.add(movieItems)
                     }
 
-                    listMovies.postValue(listItems)
+                    listTv.postValue(listItems)
 
                 }
             }
 
-            override fun onFailure(call: Call<MoviesEntityResponse>, error: Throwable) {
+            override fun onFailure(call: Call<TvEntityResponse>, error: Throwable) {
                 Log.e("tag", "errornya ${error.message}")
             }
         })
 
-    }
-
-    fun itemClick(moviesEntity: MoviesEntity){
-        moviesNavigator.onItemClick(moviesEntity)
     }
 }
 

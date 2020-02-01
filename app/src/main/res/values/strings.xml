@@ -11,4 +11,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="movies">Movies</string>
     <string name="tv_show">TV Show</string>
+    <string name="title">Uji Coba dengan Judul yang Sangat Panjang Sekali Sehingga Sampai Mana</string>
+    <string name="description">Uji Coba deskripsi yang super panjang banget supaya bisa melihat dimana berhentinya word wrapping</string>
+    <string name="dateline">2020-04-20</string>
 </resources>

@@ -1,27 +1,31 @@
-package com.example.moviesjetpack.data
+package com.example.moviesjetpack.model
 
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
-data class MoviesEntity (
+data class TvEntity (
     @SerializedName("id")
     var id: String?,
 
-    @SerializedName("title")
-    var title: String?,
+    @SerializedName("name")
+    var name: String?,
 
     @SerializedName("overview")
     var overview: String?,
 
-    @SerializedName("release_date")
-    var release_date: String?,
+    @SerializedName("first_air_date")
+    var first_air_date: String?,
 
     @SerializedName("poster_path")
-    var poster_path: String?
+    var poster_path: String?,
+
+    @SerializedName("backdrop_path")
+    var backdrop_path: String?
 
 ): Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -32,10 +36,11 @@ data class MoviesEntity (
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
-        parcel.writeString(title)
+        parcel.writeString(name)
         parcel.writeString(overview)
-        parcel.writeString(release_date)
+        parcel.writeString(first_air_date)
         parcel.writeString(poster_path)
+        parcel.writeString(backdrop_path)
     }
 
     override fun describeContents(): Int {
