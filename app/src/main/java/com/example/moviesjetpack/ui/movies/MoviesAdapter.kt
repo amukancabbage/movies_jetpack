@@ -56,7 +56,6 @@ class MoviesAdapter() : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>(), 
 
         fun setBinding(moviesEntity: MoviesEntity,moviesViewModel: MoviesViewModel){
             binding.movieEntity = moviesEntity
-            binding.imageUrl = moviesEntity.poster_path
             binding.viewModel = moviesViewModel
         }
     }

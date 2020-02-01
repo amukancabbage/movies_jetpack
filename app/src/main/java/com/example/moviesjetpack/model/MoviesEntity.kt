@@ -30,10 +30,14 @@ data class MoviesEntity (
     var poster_path: String?,
 
     @SerializedName("backdrop_path")
-    var backdrop_path: String?
+    var backdrop_path: String?,
+
+    @SerializedName("vote_average")
+    var vote_average: String?
 
 ): Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -50,6 +54,7 @@ data class MoviesEntity (
         parcel.writeString(release_date)
         parcel.writeString(poster_path)
         parcel.writeString(backdrop_path)
+        parcel.writeString(vote_average)
     }
 
     override fun describeContents(): Int {

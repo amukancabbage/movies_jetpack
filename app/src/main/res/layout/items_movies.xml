@@ -9,9 +9,6 @@
         <variable
             name="viewModel"
             type="com.example.moviesjetpack.ui.movies.MoviesViewModel" />
-        <variable
-            name="imageUrl"
-            type="String" />
     </data>
     <androidx.cardview.widget.CardView
         xmlns:app="http://schemas.android.com/apk/res-auto"

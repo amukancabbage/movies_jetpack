@@ -44,7 +44,8 @@ class MoviesViewModel : ViewModel() {
                             it.overview,
                             it.release_date,
                             "https://image.tmdb.org/t/p/w500" + it.poster_path,
-                            "https://image.tmdb.org/t/p/w500" + it.backdrop_path
+                            "https://image.tmdb.org/t/p/w500" + it.backdrop_path,
+                            it.vote_average
                         )
                         listItems.add(movieItems)
                     }
