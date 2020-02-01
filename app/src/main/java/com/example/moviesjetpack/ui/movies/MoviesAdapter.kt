@@ -3,12 +3,15 @@ package com.example.moviesjetpack.ui.movies
 import android.app.Activity
 import android.os.Parcel
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.moviesjetpack.R
 import com.example.moviesjetpack.data.MoviesEntity
@@ -46,6 +49,13 @@ class MoviesAdapter() : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>(), 
     }
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
+
+//        Glide.with(holder.itemView.context)
+//            .load(getListMovies().get(position).poster_path)
+//            .error(ContextCompat.getDrawable(getApp, R.drawable.no_img))
+//            .apply(RequestOptions().override(350, 550))
+//            .into(holder.imgPoster)
+
         holder.tvTitle.setText(getListMovies().get(position).title)
         holder.tvDescription.setText(getListMovies().get(position).overview)
         holder.itemView.setOnClickListener { v ->
@@ -57,9 +67,11 @@ class MoviesAdapter() : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>(), 
 //            activity.startActivity(intent)
         }
 
-        GlideApp.with(holder.itemView.context)
+        Log.d("poster",getListMovies().get(position).poster_path)
+
+        Glide.with(holder.itemView.context)
             .load(getListMovies().get(position).poster_path)
-            .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
+//            .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
             .into(holder.imgPoster)
     }
 

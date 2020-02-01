@@ -37,9 +37,9 @@ class HomeActivity : AppCompatActivity() {
 
 
             if (item.itemId == R.id.action_home) {
-                fragment = MoviesFragment.newInstance()
+                fragment = MoviesFragment.newInstance(true)
             } else {
-                fragment = MoviesFragment.newInstance()
+                fragment = MoviesFragment.newInstance(isMovies = false)
             }
 //        else if (item.itemId == R.id.action_bookmark) {
 //            fragment = BookmarkFragment.newInstance()

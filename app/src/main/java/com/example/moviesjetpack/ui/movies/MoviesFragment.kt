@@ -22,13 +22,21 @@ class MoviesFragment : Fragment() {
     private lateinit var moviesAdapter: MoviesAdapter
     private lateinit var viewModel: MoviesViewModel
     private var movies: List<MoviesEntity>? = null
+    private var isMovies: Boolean=true
+
+
 
 
     companion object {
-        fun newInstance(): Fragment {
-            return MoviesFragment()
+        fun newInstance(isMovies: Boolean): Fragment {
+            val m = MoviesFragment()
+
+            m.isMovies = isMovies
+
+            return m
         }
     }
+
 
 
     override fun onCreateView(
@@ -56,7 +64,7 @@ class MoviesFragment : Fragment() {
             recyclerView.layoutManager = LinearLayoutManager(this.activity)
             recyclerView.adapter = moviesAdapter
 
-            viewModel.setMoviesLiveData()
+            viewModel.setMoviesLiveData(isMovies)
 
 
             viewModel.getMoviesLiveData().observe(this, Observer { moviesEntity ->

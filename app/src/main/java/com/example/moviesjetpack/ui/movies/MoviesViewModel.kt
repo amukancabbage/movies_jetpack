@@ -24,35 +24,74 @@ class MoviesViewModel : ViewModel() {
         return listMovies
     }
 
-    internal fun setMoviesLiveData() {
+    internal fun setMoviesLiveData(isMovies: Boolean) {
 
         val listItems= ArrayList<MoviesEntity>()
 
         val movieServices = Repository.create()
-        movieServices.getPosts().enqueue(object : Callback<MoviesEntityResponse> {
 
-            override fun onResponse(
-                call: Call<MoviesEntityResponse>,
-                response: Response<MoviesEntityResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val data = response.body()?.getResults()
+        if(isMovies){
+            movieServices.getPosts().enqueue(object : Callback<MoviesEntityResponse> {
 
-                    data?.map {
-                        val movieItems = MoviesEntity(it.id,it.title,it.overview,it.release_date,it.poster_path)
-                        listItems.add(movieItems)
+                override fun onResponse(
+                    call: Call<MoviesEntityResponse>,
+                    response: Response<MoviesEntityResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val data = response.body()?.getResults()
+
+                        data?.map {
+                            val movieItems = MoviesEntity(
+                                it.id,
+                                it.title,
+                                it.overview,
+                                it.release_date,
+                                "https://image.tmdb.org/t/p/w500" + it.poster_path
+                            )
+                            listItems.add(movieItems)
+                        }
+
+                        listMovies.postValue(listItems)
+
                     }
-
-                    listMovies.postValue(listItems)
-
                 }
-            }
 
-            override fun onFailure(call: Call<MoviesEntityResponse>, error: Throwable) {
-                Log.e("tag", "errornya ${error.message}")
-            }
+                override fun onFailure(call: Call<MoviesEntityResponse>, error: Throwable) {
+                    Log.e("tag", "errornya ${error.message}")
+                }
+            })
+        }else{
+            movieServices.getPostsTv().enqueue(object : Callback<MoviesEntityResponse> {
+
+                override fun onResponse(
+                    call: Call<MoviesEntityResponse>,
+                    response: Response<MoviesEntityResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val data = response.body()?.getResults()
+
+                        data?.map {
+                            val movieItems = MoviesEntity(
+                                it.id,
+                                it.title,
+                                it.overview,
+                                it.release_date,
+                                "https://image.tmdb.org/t/p/w500" + it.poster_path
+                            )
+                            listItems.add(movieItems)
+                        }
+
+                        listMovies.postValue(listItems)
+
+                    }
+                }
+
+                override fun onFailure(call: Call<MoviesEntityResponse>, error: Throwable) {
+                    Log.e("tag", "errornya ${error.message}")
+                }
+            })
         }
-        )
+
     }
 }
 
