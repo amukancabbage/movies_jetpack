@@ -5,15 +5,21 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviesjetpack.data.Repository
+import com.example.moviesjetpack.data.RetrofitServices
 import com.example.moviesjetpack.model.*
+import com.example.moviesjetpack.utils.DataDummy
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MoviesViewModel : ViewModel() {
 
-    private val listMovies = MutableLiveData<ArrayList<MoviesEntity>>()
+    val listMovies = MutableLiveData<ArrayList<MoviesEntity>>()
     lateinit var moviesNavigator : MoviesNavigator
+    lateinit var movieServices :RetrofitServices
+
+
+
 
     fun setNavigator(moviesNavigator: MoviesNavigator){
         this.moviesNavigator = moviesNavigator
@@ -26,9 +32,10 @@ class MoviesViewModel : ViewModel() {
     internal fun setMoviesLiveData() {
 
         val listItems= ArrayList<MoviesEntity>()
-        val movieServices = Repository.create()
 
-        movieServices.getPosts().enqueue(object : Callback<MoviesEntityResponse> {
+        this.movieServices = Repository.create()
+
+        this.movieServices.getPosts().enqueue(object : Callback<MoviesEntityResponse> {
 
             override fun onResponse(
                 call: Call<MoviesEntityResponse>,
@@ -60,6 +67,11 @@ class MoviesViewModel : ViewModel() {
             }
         })
 
+    }
+
+    internal fun setMoviesDummy() {
+        val listItems= DataDummy.generateDummyMovies()
+        listMovies.postValue(listItems)
     }
 
     fun itemClick(moviesEntity: MoviesEntity){

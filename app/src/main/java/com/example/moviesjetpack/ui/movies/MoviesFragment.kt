@@ -12,7 +12,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
 import com.example.moviesjetpack.R
 import com.example.moviesjetpack.model.MoviesEntity
@@ -47,7 +46,8 @@ class MoviesFragment : Fragment(),MoviesNavigator {
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         viewModel = ViewModelProviders.of(this).get(MoviesViewModel::class.java)
         viewModel.setNavigator(this)
-        viewModel.setMoviesLiveData()
+//        viewModel.setMoviesLiveData()
+        viewModel.setMoviesDummy()
         viewModel.getMoviesLiveData().observe(this, Observer { moviesEntity ->
             binding.recyclerView.adapter = MoviesAdapter(moviesEntity, viewModel)
         })

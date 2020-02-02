@@ -45,7 +45,8 @@ class TvViewModel : ViewModel() {
                             it.overview,
                             it.first_air_date,
                             "https://image.tmdb.org/t/p/w500" + it.poster_path,
-                            "https://image.tmdb.org/t/p/w500" + it.backdrop_path
+                            "https://image.tmdb.org/t/p/w500" + it.backdrop_path,
+                            it.vote_average
                         )
                         listItems.add(movieItems)
                     }
