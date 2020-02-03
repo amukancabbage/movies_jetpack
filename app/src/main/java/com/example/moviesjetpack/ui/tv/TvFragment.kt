@@ -41,7 +41,7 @@ class TvFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        progressBar = view.findViewById(R.id.progress_bar)
+//        progressBar = view.findViewById(R.id.progress_bar)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
