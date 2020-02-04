@@ -20,7 +20,7 @@ class MoviesDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.requestFeature(Window.FEATURE_ACTION_BAR);
-        actionBar?.hide();
+        actionBar?.hide()
         databinding = DataBindingUtil.setContentView(this,R.layout.activity_movies_detail)
         var moviesEntity = intent.getParcelableExtra<MoviesEntity>(EXTRA_DATA)
         databinding.movieEntity = moviesEntity

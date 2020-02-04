@@ -5,8 +5,8 @@
     >
     <data>
         <variable
-            name="movieEntity"
-            type="com.example.moviesjetpack.model.MoviesEntity" />
+            name="tvEntity"
+            type="com.example.moviesjetpack.model.TvEntity" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
 
@@ -32,7 +32,7 @@
                     android:id="@+id/td_backdrop"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:poster_path="@{movieEntity.backdrop_path}"
+                    app:poster_path="@{tvEntity.backdrop_path}"
                     android:src="@android:drawable/sym_def_app_icon"
                     android:scaleType="centerCrop" />
 
@@ -53,33 +53,33 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".ui.movies.MoviesDetailActivity">
+                tools:context=".ui.tvs.TvDetailActivity">
 
                 <ImageView
-                    android:id="@+id/td_poster_path"
+                    android:id="@+id/tvd_im_poster"
                     android:layout_width="150dp"
                     android:layout_height="225dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:poster_path="@{movieEntity.poster_path}"
+                    app:poster_path="@{tvEntity.poster_path}"
                     tools:srcCompat="@tools:sample/backgrounds/scenic[16]" />
 
                 <TextView
-                    android:id="@+id/td_title"
+                    android:id="@+id/tvd_tv_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:maxLines="2"
-                    android:text="@{movieEntity.title}"
+                    android:text="@{tvEntity.name}"
                     android:textColor="@color/colorAccent"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/td_poster_path"
+                    app:layout_constraintStart_toEndOf="@+id/tvd_im_poster"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="@string/title" />
 
@@ -91,21 +91,21 @@
                     android:layout_marginTop="24dp"
                     android:text="Release Date"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/td_poster_path"
-                    app:layout_constraintTop_toBottomOf="@+id/td_title" />
+                    app:layout_constraintStart_toEndOf="@+id/tvd_im_poster"
+                    app:layout_constraintTop_toBottomOf="@+id/tvd_tv_title" />
 
                 <TextView
-                    android:id="@+id/td_release_date"
+                    android:id="@+id/tvd_tv_release_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:text="@{movieEntity.release_date}"
+                    android:text="@{tvEntity.first_air_date}"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/td_poster_path"
+                    app:layout_constraintStart_toEndOf="@+id/tvd_im_poster"
                     app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
                 <TextView
@@ -117,10 +117,10 @@
                     android:text="Description"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/td_poster_path" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvd_im_poster" />
 
                 <TextView
-                    android:id="@+id/td_description"
+                    android:id="@+id/tvd_tv_overview"
                     android:layout_width="0dp"
                     android:layout_height="54dp"
                     android:layout_marginStart="16dp"
@@ -128,7 +128,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
                     android:maxLines="5"
-                    android:text="@{movieEntity.overview}"
+                    android:text="@{tvEntity.overview}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -136,17 +136,16 @@
                     tools:text="@string/description" />
 
                 <RatingBar
-                    android:id="@+id/td_rating_bar"
+                    android:id="@+id/tvd_rating_bar"
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toEndOf="@+id/td_poster_path"
+                    app:layout_constraintStart_toEndOf="@+id/tvd_im_poster"
                     android:numStars="5"
                     android:stepSize="0.1"
-                    android:rating="4.2"
-                    app:vote_average="@{movieEntity.vote_average}"
+                    app:vote_average="@{tvEntity.vote_average}"
                     app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
                 <TextView
@@ -156,18 +155,18 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:text="Rating"
-                    app:layout_constraintStart_toEndOf="@+id/td_poster_path"
-                    app:layout_constraintTop_toBottomOf="@+id/td_release_date" />
+                    app:layout_constraintStart_toEndOf="@+id/tvd_im_poster"
+                    app:layout_constraintTop_toBottomOf="@+id/tvd_tv_release_date" />
 
                 <TextView
-                    android:id="@+id/td_rating"
+                    android:id="@+id/tvd_tv_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:text="@{movieEntity.vote_average}"
-                    app:layout_constraintStart_toEndOf="@+id/td_poster_path"
-                    app:layout_constraintTop_toBottomOf="@+id/td_rating_bar" />
+                    android:text="@{tvEntity.vote_average}"
+                    app:layout_constraintStart_toEndOf="@+id/tvd_im_poster"
+                    app:layout_constraintTop_toBottomOf="@+id/tvd_rating_bar" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>

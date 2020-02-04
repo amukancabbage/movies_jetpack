@@ -91,7 +91,7 @@ object DataDummy {
         return movies
     }
 
-    fun generateDummyTvs(): List<TvEntity> {
+    fun generateDummyTvs(): ArrayList<TvEntity> {
 
         val tvs = ArrayList<TvEntity>()
 
@@ -168,11 +168,11 @@ object DataDummy {
             "https://image.tmdb.org/t/p/w500/h6QhUjIquntBfvD8nm71RoEgwvr.jpg","6.7"
         ))
 
-        tvs.add(TvEntity("82395",
-            "The Liar",
-            "",
-            "2012-01-08",
-            "https://image.tmdb.org/t/p/w500/cE3EvYf87nM6B9ZKp4w9sTz6QCY.jpg",
+        tvs.add(TvEntity("62643",
+            "DC's Legends of Tomorrow",
+            "When heroes alone are not enough ... the world needs legends. Having seen the future, one he will desperately try to prevent from happening, time-traveling rogue Rip Hunter is tasked with assembling a disparate group of both heroes and villains to confront an unstoppable threat — one in which not only is the planet at stake, but all of time itself. Can this ragtag team defeat an immortal threat unlike anything they have ever known?",
+            "2016-01-21",
+            "https://image.tmdb.org/t/p/w500/yJ3xE11IDIe29LJsSbhzwt5Oxtd.jpg",
             "https://image.tmdb.org/t/p/w500/kvdRZOLuvln0YSrc01JmugXxYaB.jpg","0"
         ))
 
@@ -181,7 +181,7 @@ object DataDummy {
             "40 years in the future, space captain Ryan Clark and the crew of the luxury space cruise ship Avenue 5 navigate disgruntled passengers and unexpected events after experiencing technical difficulties onboard.",
             "2020-01-19",
             "https://image.tmdb.org/t/p/w500/tJuFDbd6OmqEcfWbCDSYIHlqGoN.jpg",
-            "https://image.tmdb.org/t/p/w500/8Q1jEFvhGNQqDUzEuqj9G9tAJYL.jpg","6.4"
+            "https://image.tmdb.org/t/p/w500/xOcuDnxTTqNT2CuFNy5VVc67tG4.jpg","6.4"
         ))
 
         return tvs

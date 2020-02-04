@@ -18,9 +18,6 @@ class MoviesViewModel : ViewModel() {
     lateinit var moviesNavigator : MoviesNavigator
     lateinit var movieServices :RetrofitServices
 
-
-
-
     fun setNavigator(moviesNavigator: MoviesNavigator){
         this.moviesNavigator = moviesNavigator
     }

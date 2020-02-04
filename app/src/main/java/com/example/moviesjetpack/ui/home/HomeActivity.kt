@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.moviesjetpack.R
 import com.example.moviesjetpack.ui.movies.MoviesFragment
-import com.example.moviesjetpack.ui.movies.TvFragment
+import com.example.moviesjetpack.ui.tv.TvFragment
 
 class HomeActivity : AppCompatActivity() {
 

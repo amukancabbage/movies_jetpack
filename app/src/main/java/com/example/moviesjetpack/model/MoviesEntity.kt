@@ -1,9 +1,13 @@
 package com.example.moviesjetpack.model
 
+import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.LayerDrawable
 import android.os.Parcel
 import android.os.Parcelable
 import android.widget.ImageView
+import android.widget.RatingBar
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -12,6 +16,8 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.google.gson.annotations.SerializedName
 import com.bumptech.glide.request.target.Target
+import com.example.moviesjetpack.R
+import java.lang.Float
 
 data class MoviesEntity (
     @SerializedName("id")
@@ -97,6 +103,21 @@ data class MoviesEntity (
                     }
                 })
                 .into(view)
+        }
+
+        @JvmStatic
+        @BindingAdapter("vote_average")
+        fun setRating(rating_bar: RatingBar, vote_average: String?){
+            if (vote_average != null) {
+                var float_vote_average = Float.parseFloat(vote_average)
+                float_vote_average = float_vote_average/2
+                rating_bar.rating = float_vote_average
+                val stars = rating_bar.progressDrawable as LayerDrawable
+                stars.getDrawable(2).setColorFilter(ContextCompat.getColor(rating_bar.context, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP)
+                val roundVal = Math.round(float_vote_average!!)
+                rating_bar.numStars = 5
+            }
+
         }
     }
 

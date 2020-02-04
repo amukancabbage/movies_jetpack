@@ -1,85 +1,54 @@
-package com.example.moviesjetpack.ui.movies
+package com.example.moviesjetpack.ui.tv
 
-import android.app.Activity
 import android.os.Parcel
 import android.os.Parcelable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.moviesjetpack.R
+import com.example.moviesjetpack.databinding.ItemsTvBinding
 import com.example.moviesjetpack.model.TvEntity
 
 
 class TvAdapter() : RecyclerView.Adapter<TvAdapter.TvViewHolder>(), Parcelable {
-    private var activity : Activity?=null
     private var mTv = ArrayList<TvEntity>()
+    private lateinit var viewModel: TvViewModel
 
     constructor(parcel: Parcel) : this() {
 
     }
 
-    constructor(activity: Activity):this(){
-        this.activity = activity
 
-    }
-
-    fun getListTv(): List<TvEntity>{
-        return mTv
-    }
-
-    fun setListTv(listTv: ArrayList<TvEntity>){
-        mTv.clear()
-        mTv.addAll(listTv)
-        notifyDataSetChanged()
+    constructor(mTv: ArrayList<TvEntity>, viewModel: TvViewModel):this(){
+        this.mTv = mTv
+        this.viewModel = viewModel
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.items_movies, parent, false)
-        return TvViewHolder(view)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        var binding : ItemsTvBinding = DataBindingUtil.inflate(layoutInflater,R.layout.items_tv,parent,false)
+        return TvViewHolder(binding)
+
     }
 
     override fun onBindViewHolder(holder: TvViewHolder, position: Int) {
 
-        holder.tvTitle.setText(getListTv().get(position).name)
-        holder.tvDate.setText(getListTv().get(position).first_air_date)
-        holder.tvDescription.setText(getListTv().get(position).overview)
-        holder.itemView.setOnClickListener { v ->
-            //            val intent = Intent(activity, DetailCourseActivity::class.java)
-//            intent.putExtra(
-//                DetailCourseActivity.EXTRA_COURSE,
-//                listTv.get(position).getCourseId()
-//            )
-//            activity.startActivity(intent)
-        }
-
-
-        Glide.with(holder.itemView.context)
-            .load(getListTv().get(position).poster_path)
-//            .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
-            .into(holder.imgPoster)
+        var tvEntity: TvEntity =mTv.get(position)
+        holder.setBinding(tvEntity, viewModel)
     }
 
     override fun getItemCount(): Int {
-        return getListTv().size
+        return mTv.size
     }
 
-    inner class TvViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvTitle: TextView
-        var tvDescription: TextView
-        var tvDate: TextView
-        var imgPoster: ImageView
 
-        init {
-            tvTitle = itemView.findViewById(R.id.tv_item_title)
-            imgPoster = itemView.findViewById(R.id.img_poster)
-            tvDescription = itemView.findViewById(R.id.tv_item_description)
-            tvDate = itemView.findViewById(R.id.tv_item_date)
+    inner class TvViewHolder constructor(val binding: ItemsTvBinding) : RecyclerView.ViewHolder(binding.root){
+
+        fun setBinding(tvEntity: TvEntity, tvViewModel: TvViewModel){
+            binding.tvEntity = tvEntity
+            binding.tvViewModel= tvViewModel
         }
     }
 

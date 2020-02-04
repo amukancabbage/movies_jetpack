@@ -19,6 +19,7 @@ import org.junit.runner.RunWith
 class HomeActivityTest{
 
     private val dummyMovies = DataDummy.generateDummyMovies()
+    private val dummyTvs = DataDummy.generateDummyTvs()
 
     @get:Rule
     var activityRule = ActivityTestRule(HomeActivity::class.java)
@@ -44,27 +45,29 @@ class HomeActivityTest{
         onView(withId(R.id.td_release_date)).check(matches(withText(dummyMovies[0].release_date)))
         onView(withId(R.id.td_description)).check(matches(isDisplayed()))
         onView(withId(R.id.td_description)).check(matches(withText(dummyMovies[0].overview)))
+        onView(withId(R.id.td_rating)).check(matches(isDisplayed()))
+        onView(withId(R.id.td_rating)).check(matches(withText(dummyMovies[0].vote_average)))
     }
 
-//    @Test
-//    fun loadModule() {
-//        onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
-//        onView(withId(R.id.btn_start)).perform(click())
-//        onView(withId(R.id.rv_module)).check(matches(isDisplayed()))
-//    }
-//
-//    @Test
-//    fun loadDetailModule() {
-//        onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
-//        onView(withId(R.id.btn_start)).perform(click())
-//        onView(withId(R.id.rv_module)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
-//        onView(withId(R.id.web_view)).check(matches(isDisplayed()))
-//    }
-//
-//    @Test
-//    fun loadBookmarks() {
-//        onView(withText("Bookmark")).perform(click())
-//        onView(withId(R.id.rv_bookmark)).check(matches(isDisplayed()))
-//        onView(withId(R.id.rv_bookmark)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyMovies.size))
-//    }
+    @Test
+    fun loadTvs() {
+        onView(withId(R.id.action_bookmark)).perform(click())
+        onView(withId(R.id.recyclerViewTv)).check(matches(isDisplayed()))
+        onView(withId(R.id.recyclerViewTv)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyTvs.size))
+    }
+
+    @Test
+    fun loadDetailTv() {
+        onView(withId(R.id.action_bookmark)).perform(click())
+        onView(withId(R.id.recyclerViewTv)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.tvd_tv_title)).check(matches(isDisplayed()))
+        onView(withId(R.id.tvd_tv_title)).check(matches(withText(dummyTvs[0].name)))
+        onView(withId(R.id.tvd_tv_release_date)).check(matches(isDisplayed()))
+        onView(withId(R.id.tvd_tv_release_date)).check(matches(withText(dummyTvs[0].first_air_date)))
+        onView(withId(R.id.tvd_tv_overview)).check(matches(isDisplayed()))
+        onView(withId(R.id.tvd_tv_overview)).check(matches(withText(dummyTvs[0].overview)))
+        onView(withId(R.id.tvd_tv_rating)).check(matches(isDisplayed()))
+        onView(withId(R.id.tvd_tv_rating)).check(matches(withText(dummyTvs[0].vote_average)))
+    }
+
 }
