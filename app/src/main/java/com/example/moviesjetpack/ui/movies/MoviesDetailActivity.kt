@@ -1,5 +1,6 @@
 package com.example.moviesjetpack.ui.movies
 
+import android.nfc.NfcAdapter.EXTRA_DATA
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
@@ -13,7 +14,7 @@ class MoviesDetailActivity : AppCompatActivity() {
     lateinit var databinding : ActivityMoviesDetailBinding
 
     companion object{
-       val EXTRA_DATA = "extra_data"
+       const val EXTRA_DATA = "extra_data"
     }
 
 

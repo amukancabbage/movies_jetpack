@@ -1,7 +1,5 @@
 package com.example.moviesjetpack.ui.movies
 
-import android.os.Parcel
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -11,14 +9,9 @@ import com.example.moviesjetpack.model.source.local.entity.MoviesEntity
 import com.example.moviesjetpack.databinding.ItemsMoviesBinding
 
 
-class MoviesAdapter() : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>(), Parcelable {
+class MoviesAdapter() : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
     private var mMovies = ArrayList<MoviesEntity>()
     private lateinit var viewModel: MoviesViewModel
-
-    constructor(parcel: Parcel) : this() {
-
-    }
-
 
     constructor(mMovies: ArrayList<MoviesEntity>, viewModel: MoviesViewModel):this(){
         this.mMovies = mMovies
@@ -28,14 +21,14 @@ class MoviesAdapter() : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>(), 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        var binding : ItemsMoviesBinding = DataBindingUtil.inflate(layoutInflater,R.layout.items_movies,parent,false)
+        val binding : ItemsMoviesBinding = DataBindingUtil.inflate(layoutInflater,R.layout.items_movies,parent,false)
         return MoviesViewHolder(binding)
 
     }
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
 
-        var moviesEntity: MoviesEntity =mMovies.get(position)
+        val moviesEntity: MoviesEntity =mMovies.get(position)
         holder.setBinding(moviesEntity, viewModel)
     }
 
@@ -52,21 +45,4 @@ class MoviesAdapter() : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>(), 
         }
     }
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<MoviesAdapter> {
-        override fun createFromParcel(parcel: Parcel): MoviesAdapter {
-            return MoviesAdapter(parcel)
-        }
-
-        override fun newArray(size: Int): Array<MoviesAdapter?> {
-            return arrayOfNulls(size)
-        }
-    }
 }

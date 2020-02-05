@@ -11,23 +11,20 @@ import com.example.moviesjetpack.ui.tv.TvFragment
 
 class HomeActivity : AppCompatActivity() {
 
-    private val SELECTED_MENU = "selected_menu"
+    companion object{
+        private val SELECTED_MENU = "selected_menu"
+    }
     var navView: BottomNavigationView? = null
 
 
     private val mOnNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
-            var fragment: Fragment?
 
-
-            if (item.itemId == R.id.action_home) {
-                fragment = MoviesFragment.newInstance()
+            val fragment: Fragment? = if (item.itemId == R.id.action_home) {
+                MoviesFragment.newInstance()
             } else {
-                fragment = TvFragment.newInstance()
+                TvFragment.newInstance()
             }
-//        else if (item.itemId == R.id.action_bookmark) {
-//            fragment = BookmarkFragment.newInstance()
-//        }
 
             if (fragment != null) {
                 supportFragmentManager

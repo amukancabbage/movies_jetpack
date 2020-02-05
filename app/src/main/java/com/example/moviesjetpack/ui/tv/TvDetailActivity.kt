@@ -13,7 +13,7 @@ class TvDetailActivity : AppCompatActivity() {
     lateinit var databinding : ActivityTvDetailBinding
 
     companion object{
-        val EXTRA_DATA_TV = "extra_data_tv"
+        const val EXTRA_DATA_TV = "extra_data_tv"
     }
 
 
