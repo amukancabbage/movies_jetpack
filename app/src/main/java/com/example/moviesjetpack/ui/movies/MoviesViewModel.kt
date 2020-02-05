@@ -81,7 +81,6 @@ class MoviesViewModel(private val movieRepository: MovieRepository) : ViewModel(
     fun getMovies(){
         val listItems= movieRepository.getAllMovies()
         listMovies.postValue(listItems)
-
     }
 }
 
