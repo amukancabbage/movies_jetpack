@@ -6,13 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviesjetpack.data.Repository
 import com.example.moviesjetpack.data.RetrofitServices
-import com.example.moviesjetpack.model.*
+import com.example.moviesjetpack.model.source.MovieRepository
+import com.example.moviesjetpack.model.source.local.entity.MoviesEntity
+import com.example.moviesjetpack.model.source.local.entity.MoviesEntityResponse
 import com.example.moviesjetpack.utils.DataDummy
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MoviesViewModel : ViewModel() {
+class MoviesViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
     val listMovies = MutableLiveData<ArrayList<MoviesEntity>>()
     lateinit var moviesNavigator : MoviesNavigator
@@ -42,15 +44,16 @@ class MoviesViewModel : ViewModel() {
                     val data = response.body()?.getResults()
 
                     data?.map {
-                        val movieItems = MoviesEntity(
-                            it.id,
-                            it.title,
-                            it.overview,
-                            it.release_date,
-                            "https://image.tmdb.org/t/p/w500" + it.poster_path,
-                            "https://image.tmdb.org/t/p/w500" + it.backdrop_path,
-                            it.vote_average
-                        )
+                        val movieItems =
+                            MoviesEntity(
+                                it.id,
+                                it.title,
+                                it.overview,
+                                it.release_date,
+                                "https://image.tmdb.org/t/p/w500" + it.poster_path,
+                                "https://image.tmdb.org/t/p/w500" + it.backdrop_path,
+                                it.vote_average
+                            )
                         listItems.add(movieItems)
                     }
 
@@ -73,6 +76,12 @@ class MoviesViewModel : ViewModel() {
 
     fun itemClick(moviesEntity: MoviesEntity){
         moviesNavigator.onItemClick(moviesEntity)
+    }
+
+    fun getMovies(){
+        val listItems= movieRepository.getAllMovies()
+        listMovies.postValue(listItems)
+
     }
 }
 

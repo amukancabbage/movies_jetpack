@@ -10,12 +10,16 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.moviesjetpack.R
-import com.example.moviesjetpack.model.TvEntity
+import com.example.moviesjetpack.model.source.local.entity.TvEntity
 import com.example.moviesjetpack.databinding.FragmentTvBinding
+import com.example.moviesjetpack.ui.movies.MoviesAdapter
+import com.example.moviesjetpack.ui.movies.MoviesViewModel
+import com.example.moviesjetpack.utils.ViewModelFactory
 
 class TvFragment : Fragment(), TvNavigator {
 
@@ -43,13 +47,16 @@ class TvFragment : Fragment(), TvNavigator {
         var binding: FragmentTvBinding= DataBindingUtil.inflate(inflater, R.layout.fragment_tv,container,false)
         var view: View = binding.root
         binding.recyclerViewTv.layoutManager = LinearLayoutManager(activity)
-        viewModel = ViewModelProviders.of(this).get(TvViewModel::class.java)
+
+
+        val factory = ViewModelFactory.getInstance(requireActivity())
+        viewModel = ViewModelProvider(this, factory)[TvViewModel::class.java]
         viewModel.setNavigator(this)
-//        viewModel.setTvLiveData()
-        viewModel.setTvDummy()
+        viewModel.getTvs()
         viewModel.getTvLiveData().observe(this, Observer { tvEntity ->
             binding.recyclerViewTv.adapter = TvAdapter(tvEntity, viewModel)
         })
+
         return view
     }
 

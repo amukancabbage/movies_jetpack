@@ -6,7 +6,7 @@ import android.view.Window
 import androidx.databinding.DataBindingUtil
 import com.example.moviesjetpack.R
 import com.example.moviesjetpack.databinding.ActivityMoviesDetailBinding
-import com.example.moviesjetpack.model.MoviesEntity
+import com.example.moviesjetpack.model.source.local.entity.MoviesEntity
 
 class MoviesDetailActivity : AppCompatActivity() {
 

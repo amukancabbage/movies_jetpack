@@ -6,7 +6,7 @@
     <data>
         <variable
             name="movieEntity"
-            type="com.example.moviesjetpack.model.MoviesEntity" />
+            type="com.example.moviesjetpack.model.source.local.entity.MoviesEntity" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
 

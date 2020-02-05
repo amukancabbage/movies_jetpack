@@ -1,21 +1,13 @@
 package com.example.moviesjetpack.ui.movies
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Parcel
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.moviesjetpack.R
-import com.example.moviesjetpack.model.MoviesEntity
+import com.example.moviesjetpack.model.source.local.entity.MoviesEntity
 import com.example.moviesjetpack.databinding.ItemsMoviesBinding
 
 
@@ -28,7 +20,7 @@ class MoviesAdapter() : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>(), 
     }
 
 
-    constructor(mMovies: ArrayList<MoviesEntity>,viewModel: MoviesViewModel):this(){
+    constructor(mMovies: ArrayList<MoviesEntity>, viewModel: MoviesViewModel):this(){
         this.mMovies = mMovies
         this.viewModel = viewModel
 
@@ -43,7 +35,7 @@ class MoviesAdapter() : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>(), 
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
 
-        var moviesEntity:MoviesEntity=mMovies.get(position)
+        var moviesEntity: MoviesEntity =mMovies.get(position)
         holder.setBinding(moviesEntity, viewModel)
     }
 
@@ -54,7 +46,7 @@ class MoviesAdapter() : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>(), 
 
     inner class MoviesViewHolder constructor(val binding: ItemsMoviesBinding) : RecyclerView.ViewHolder(binding.root){
 
-        fun setBinding(moviesEntity: MoviesEntity,moviesViewModel: MoviesViewModel){
+        fun setBinding(moviesEntity: MoviesEntity, moviesViewModel: MoviesViewModel){
             binding.movieEntity = moviesEntity
             binding.viewModel = moviesViewModel
         }

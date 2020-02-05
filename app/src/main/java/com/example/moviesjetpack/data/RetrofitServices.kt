@@ -1,7 +1,7 @@
 package com.example.moviesjetpack.data
 
-import com.example.moviesjetpack.model.MoviesEntityResponse
-import com.example.moviesjetpack.model.TvEntityResponse
+import com.example.moviesjetpack.model.source.local.entity.MoviesEntityResponse
+import com.example.moviesjetpack.model.source.local.entity.TvEntityResponse
 import retrofit2.Call
 import retrofit2.http.GET
 

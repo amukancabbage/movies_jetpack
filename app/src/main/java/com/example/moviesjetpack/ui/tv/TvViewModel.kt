@@ -3,10 +3,11 @@ package com.example.moviesjetpack.ui.tv
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.moviesjetpack.model.TvEntity
+import com.example.moviesjetpack.model.source.MovieRepository
+import com.example.moviesjetpack.model.source.local.entity.TvEntity
 import com.example.moviesjetpack.utils.DataDummy
 
-class TvViewModel : ViewModel() {
+class TvViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
     val listTv = MutableLiveData<ArrayList<TvEntity>>()
     lateinit var tvNavigator : TvNavigator
@@ -27,6 +28,12 @@ class TvViewModel : ViewModel() {
 
     fun itemClick(tvEntity: TvEntity) {
         tvNavigator.onItemClick(tvEntity)
+    }
+
+    fun getTvs(){
+        val listItems= movieRepository.getAllTvs()
+        listTv.postValue(listItems)
+
     }
 }
 

@@ -10,13 +10,14 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.moviesjetpack.R
-import com.example.moviesjetpack.model.MoviesEntity
+import com.example.moviesjetpack.model.source.local.entity.MoviesEntity
 import com.example.moviesjetpack.databinding.FragmentMoviesBinding
-import kotlinx.android.synthetic.main.fragment_movies.*
+import com.example.moviesjetpack.utils.ViewModelFactory
 
 class MoviesFragment : Fragment(),MoviesNavigator {
 
@@ -44,10 +45,12 @@ class MoviesFragment : Fragment(),MoviesNavigator {
         var binding: FragmentMoviesBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_movies,container,false)
         var view: View = binding.root
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-        viewModel = ViewModelProviders.of(this).get(MoviesViewModel::class.java)
+
+
+        val factory = ViewModelFactory.getInstance(requireActivity())
+        viewModel = ViewModelProvider(this, factory)[MoviesViewModel::class.java]
         viewModel.setNavigator(this)
-//        viewModel.setMoviesLiveData()
-        viewModel.setMoviesDummy()
+        viewModel.getMovies()
         viewModel.getMoviesLiveData().observe(this, Observer { moviesEntity ->
             binding.recyclerView.adapter = MoviesAdapter(moviesEntity, viewModel)
         })

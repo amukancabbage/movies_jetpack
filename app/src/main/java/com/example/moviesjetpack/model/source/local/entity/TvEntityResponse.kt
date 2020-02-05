@@ -1,4 +1,4 @@
-package com.example.moviesjetpack.model
+package com.example.moviesjetpack.model.source.local.entity
 
 import com.google.gson.annotations.SerializedName
 

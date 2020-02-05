@@ -1,4 +1,4 @@
-package com.example.moviesjetpack.model
+package com.example.moviesjetpack.model.source.local.entity
 
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
@@ -13,24 +13,23 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.RequestOptions
-import com.google.gson.annotations.SerializedName
 import com.bumptech.glide.request.target.Target
 import com.example.moviesjetpack.R
+import com.google.gson.annotations.SerializedName
 import java.lang.Float
 
-data class MoviesEntity (
+data class TvEntity (
     @SerializedName("id")
     var id: String?,
 
-    @SerializedName("title")
-    var title: String?,
+    @SerializedName("name")
+    var name: String?,
 
     @SerializedName("overview")
     var overview: String?,
 
-    @SerializedName("release_date")
-    var release_date: String?,
+    @SerializedName("first_air_date")
+    var first_air_date: String?,
 
     @SerializedName("poster_path")
     var poster_path: String?,
@@ -55,9 +54,9 @@ data class MoviesEntity (
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
-        parcel.writeString(title)
+        parcel.writeString(name)
         parcel.writeString(overview)
-        parcel.writeString(release_date)
+        parcel.writeString(first_air_date)
         parcel.writeString(poster_path)
         parcel.writeString(backdrop_path)
         parcel.writeString(vote_average)
@@ -67,12 +66,12 @@ data class MoviesEntity (
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<MoviesEntity> {
-        override fun createFromParcel(parcel: Parcel): MoviesEntity {
-            return MoviesEntity(parcel)
+    companion object CREATOR : Parcelable.Creator<TvEntity> {
+        override fun createFromParcel(parcel: Parcel): TvEntity {
+            return TvEntity(parcel)
         }
 
-        override fun newArray(size: Int): Array<MoviesEntity?> {
+        override fun newArray(size: Int): Array<TvEntity?> {
             return arrayOfNulls(size)
         }
 
@@ -120,6 +119,4 @@ data class MoviesEntity (
 
         }
     }
-
-
 }

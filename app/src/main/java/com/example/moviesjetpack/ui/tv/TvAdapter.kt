@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviesjetpack.R
 import com.example.moviesjetpack.databinding.ItemsTvBinding
-import com.example.moviesjetpack.model.TvEntity
+import com.example.moviesjetpack.model.source.local.entity.TvEntity
 
 
 class TvAdapter() : RecyclerView.Adapter<TvAdapter.TvViewHolder>(), Parcelable {
