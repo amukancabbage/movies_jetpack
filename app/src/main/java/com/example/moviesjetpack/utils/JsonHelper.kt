@@ -23,7 +23,7 @@ class JsonHelper(private val context: Context) {
         }
     }
 
-    fun loadMovies(): List<MovieResponse> {
+    fun loadMovies(): ArrayList<MovieResponse> {
         val list = ArrayList<MovieResponse>()
         try {
             val responseObject = JSONObject(parsingFileToString("MoviesResponse.json").toString())
@@ -49,7 +49,33 @@ class JsonHelper(private val context: Context) {
         return list
     }
 
-    fun loadTvs(): List<TvResponse> {
+    fun loadMoviesOnline(): ArrayList<MovieResponse> {
+        val list = ArrayList<MovieResponse>()
+        try {
+            val responseObject = JSONObject(parsingFileToString("MoviesResponse.json").toString())
+            val listArray = responseObject.getJSONArray("results")
+            for (i in 0 until listArray.length()) {
+                val course = listArray.getJSONObject(i)
+
+                val id = course.getString("id")
+                val title = course.getString("title")
+                val overview = course.getString("overview")
+                val releaseDate = course.getString("release_date")
+                val posterPath = "https://image.tmdb.org/t/p/w500"+course.getString("poster_path")
+                val backdropPath = "https://image.tmdb.org/t/p/w500"+course.getString("backdrop_path")
+                val voteAverage = course.getString("vote_average")
+
+                val courseResponse = MovieResponse(id, title, overview, releaseDate, posterPath, backdropPath, voteAverage)
+                list.add(courseResponse)
+            }
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+        return list
+    }
+
+    fun loadTvs(): ArrayList<TvResponse> {
         val list = ArrayList<TvResponse>()
         try {
             val responseObject = JSONObject(parsingFileToString("TvResponse.json").toString())

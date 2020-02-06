@@ -1,6 +1,8 @@
 package com.example.moviesjetpack.ui.tv
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.example.moviesjetpack.model.source.MovieRepository
 import com.example.moviesjetpack.model.source.local.entity.MoviesEntity
 import com.example.moviesjetpack.model.source.local.entity.TvEntity
@@ -26,6 +28,9 @@ class TvViewModelTest {
     @Mock
     private lateinit var movieRepository: MovieRepository
 
+    @Mock
+    private lateinit var observer: Observer<List<TvEntity>>
+
     @Before
     fun setUp() {
         viewModel = TvViewModel(movieRepository)
@@ -36,7 +41,7 @@ class TvViewModelTest {
         viewModel.setTvDummy()
         val tvEntities = viewModel.listTv
         assertNotNull(tvEntities)
-        assertEquals(11, tvEntities.value?.size)
+        assertEquals(12, tvEntities.value?.size)
     }
 
     @Test
@@ -44,16 +49,25 @@ class TvViewModelTest {
         viewModel.setTvDummy()
         val tvEntities = viewModel.getTvLiveData()
         assertNotNull(tvEntities)
-        assertEquals(11, tvEntities.value?.size)
+        assertEquals(12, tvEntities.value?.size)
     }
 
     @Test
     fun getTvs(){
-        Mockito.`when`<ArrayList<TvEntity>>(movieRepository.getAllTvs()).thenReturn(DataDummy.generateDummyTvs())
+
+        val dummyCourses = DataDummy.generateDummyTvs()
+        val tvs = MutableLiveData<ArrayList<TvEntity>>()
+        tvs.value = dummyCourses
+
+        Mockito.`when`(movieRepository.getAllTvs()).thenReturn(tvs)
         viewModel.getTvs()
-        val tvEntities = viewModel.listTv
+        val tvsEntities = viewModel.listTv
         Mockito.verify<MovieRepository>(movieRepository).getAllTvs()
-        assertNotNull(tvEntities)
-        assertEquals(11, tvEntities.value?.size)
+        assertNotNull(tvsEntities)
+        assertEquals(12, tvsEntities.value?.size)
+
+        viewModel.listTv.observeForever(observer)
+        Mockito.verify(observer).onChanged(dummyCourses)
+
     }
 }

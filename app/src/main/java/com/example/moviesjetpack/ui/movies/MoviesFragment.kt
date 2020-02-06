@@ -42,17 +42,18 @@ class MoviesFragment : Fragment(),MoviesNavigator {
         savedInstanceState: Bundle?
     ): View? {
 
-        var binding: FragmentMoviesBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_movies,container,false)
-        var view: View = binding.root
+        val binding: FragmentMoviesBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_movies,container,false)
+        val view: View = binding.root
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
 
-
+        progressBar?.visibility  = View.VISIBLE
         val factory = ViewModelFactory.getInstance(requireActivity())
         viewModel = ViewModelProvider(this, factory)[MoviesViewModel::class.java]
         viewModel.setNavigator(this)
         viewModel.getMovies()
-        viewModel.getMoviesLiveData().observe(this, Observer { moviesEntity ->
+        viewModel.getMoviesLiveData().observe(viewLifecycleOwner, Observer { moviesEntity ->
             binding.recyclerView.adapter = MoviesAdapter(moviesEntity, viewModel)
+            progressBar?.visibility  = View.VISIBLE
         })
         return view
     }

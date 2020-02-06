@@ -5,6 +5,8 @@ import org.junit.Test
 import org.junit.Assert.*
 import org.junit.Before
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.example.moviesjetpack.model.source.MovieRepository
 import com.example.moviesjetpack.model.source.local.entity.MoviesEntity
 import com.example.moviesjetpack.utils.DataDummy
@@ -26,6 +28,9 @@ class MoviesViewModelTest {
 
     @Mock
     private lateinit var movieRepository: MovieRepository
+
+    @Mock
+    private lateinit var observer: Observer<List<MoviesEntity>>
 
     @Before
     fun setUp() {
@@ -51,12 +56,20 @@ class MoviesViewModelTest {
 
     @Test
     fun getMovies(){
-        `when`<ArrayList<MoviesEntity>>(movieRepository.getAllMovies()).thenReturn(DataDummy.generateDummyMovies())
+
+        val dummyCourses = DataDummy.generateDummyMovies()
+        val movies = MutableLiveData<ArrayList<MoviesEntity>>()
+        movies.value = dummyCourses
+
+        `when`(movieRepository.getAllMovies()).thenReturn(movies)
         viewModel.getMovies()
         val moviesEntities = viewModel.listMovies
         verify<MovieRepository>(movieRepository).getAllMovies()
         assertNotNull(moviesEntities)
         assertEquals(11, moviesEntities.value?.size)
+
+        viewModel.listMovies.observeForever(observer)
+        verify(observer).onChanged(dummyCourses)
 
     }
 

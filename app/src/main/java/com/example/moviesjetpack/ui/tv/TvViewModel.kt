@@ -9,7 +9,7 @@ import com.example.moviesjetpack.utils.DataDummy
 
 class TvViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
-    val listTv = MutableLiveData<ArrayList<TvEntity>>()
+    var listTv = MutableLiveData<ArrayList<TvEntity>>()
     lateinit var tvNavigator : TvNavigator
 
     fun setNavigator(tvNavigator: TvNavigator){
@@ -31,9 +31,7 @@ class TvViewModel(private val movieRepository: MovieRepository) : ViewModel() {
     }
 
     fun getTvs(){
-        val listItems= movieRepository.getAllTvs()
-        listTv.postValue(listItems)
-
+        listTv= movieRepository.getAllTvs()
     }
 }
 

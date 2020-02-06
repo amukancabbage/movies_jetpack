@@ -44,17 +44,18 @@ class TvFragment : Fragment(), TvNavigator {
         savedInstanceState: Bundle?
     ): View? {
 
-        var binding: FragmentTvBinding= DataBindingUtil.inflate(inflater, R.layout.fragment_tv,container,false)
-        var view: View = binding.root
+        val binding: FragmentTvBinding= DataBindingUtil.inflate(inflater, R.layout.fragment_tv,container,false)
+        val view: View = binding.root
         binding.recyclerViewTv.layoutManager = LinearLayoutManager(activity)
 
-
+        progressBar?.visibility  = View.VISIBLE
         val factory = ViewModelFactory.getInstance(requireActivity())
         viewModel = ViewModelProvider(this, factory)[TvViewModel::class.java]
         viewModel.setNavigator(this)
         viewModel.getTvs()
-        viewModel.getTvLiveData().observe(this, Observer { tvEntity ->
+        viewModel.getTvLiveData().observe(viewLifecycleOwner, Observer { tvEntity ->
             binding.recyclerViewTv.adapter = TvAdapter(tvEntity, viewModel)
+            progressBar?.visibility  = View.VISIBLE
         })
 
         return view

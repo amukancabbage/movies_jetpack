@@ -16,7 +16,7 @@ import retrofit2.Response
 
 class MoviesViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
-    val listMovies = MutableLiveData<ArrayList<MoviesEntity>>()
+    var listMovies = MutableLiveData<ArrayList<MoviesEntity>>()
     lateinit var moviesNavigator : MoviesNavigator
     lateinit var movieServices :RetrofitServices
 
@@ -78,9 +78,13 @@ class MoviesViewModel(private val movieRepository: MovieRepository) : ViewModel(
         moviesNavigator.onItemClick(moviesEntity)
     }
 
-    fun getMovies(){
-        val listItems= movieRepository.getAllMovies()
+    fun getMoviesArrayList(){
+        val listItems= movieRepository.getAllMoviesArrayList()
         listMovies.postValue(listItems)
+    }
+
+    fun getMovies(){
+        listMovies = movieRepository.getAllMovies()
     }
 }
 

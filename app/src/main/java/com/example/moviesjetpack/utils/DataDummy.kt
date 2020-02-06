@@ -11,22 +11,23 @@ object DataDummy {
 
         movies.add(
             MoviesEntity(
-                "532170",
-                "Farmlands",
-                "A detailing of the plight of white South African farmers.",
-                "2019-11-01",
-                "https://image.tmdb.org/t/p/w500/1jNS4DoNh7aalZrLioa7BVjoZna.jpg",
-                "https://image.tmdb.org/t/p/w500/xUeDT0xcBMK81xfwj4MTrMEbNLQ.jpg", "6.2"
-            )
-        )
-        movies.add(
-            MoviesEntity(
                 "17532",
                 "S. Darko",
                 "S. Darko follows Samantha Darko, the younger sister of Donnie, the protagonist of Donnie Darko, and her friend Corey. On their way to California, their car breaks down, forcing them to wait in a small town until it is fixed. While there, Samantha begins to have dreams that warn her of the end of the universe.",
                 "2009-04-28",
                 "https://image.tmdb.org/t/p/w500/dAol6pkKEX7zM1rICqPgUWmas2S.jpg",
                 "https://image.tmdb.org/t/p/w500/scVLRx5GWyznYoBMUo8aXxgLot9.jpg", "3.9"
+            )
+        )
+        movies.add(
+
+            MoviesEntity(
+                "532170",
+                "Farmlands",
+                "A detailing of the plight of white South African farmers.",
+                "2019-11-01",
+                "https://image.tmdb.org/t/p/w500/1jNS4DoNh7aalZrLioa7BVjoZna.jpg",
+                "https://image.tmdb.org/t/p/w500/xUeDT0xcBMK81xfwj4MTrMEbNLQ.jpg", "6.2"
             )
         )
         movies.add(
@@ -127,6 +128,17 @@ object DataDummy {
     fun generateDummyTvs(): ArrayList<TvEntity> {
 
         val tvs = ArrayList<TvEntity>()
+
+        tvs.add(
+            TvEntity(
+                "85949",
+                "Star Trek: Picard",
+                "Set twenty years after the events of Star Trek Nemesis, we follow the now-retired Admiral Picard into the next chapter of his life.",
+                "2020-01-23",
+                "https://image.tmdb.org/t/p/w500/mK286PAkhgLJqk5cO0BCmFLkNE7.jpg",
+                "https://image.tmdb.org/t/p/w500/nIlAKIrLKxOeoEnc0Urb65yNCp.jpg", "8.2"
+            )
+        )
 
         tvs.add(
             TvEntity(

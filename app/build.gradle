@@ -108,4 +108,7 @@ dependencies {
 
     kapt "com.android.databinding:compiler:3.5.3"
 
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$archLifecycleVersion"
+
+
 }
