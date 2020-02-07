@@ -9,4 +9,13 @@
         android:id="@+id/action_bookmark"
         android:icon="@drawable/ic_bookmark_white"
         android:title="@string/tv_show" />
+    <item
+        android:id="@+id/action_fav_movie"
+        android:checked="true"
+        android:icon="@drawable/ic_home_white"
+        android:title="@string/movies" />
+    <item
+        android:id="@+id/action_fav_tv"
+        android:icon="@drawable/ic_bookmark_white"
+        android:title="@string/tv_show" />
 </menu>

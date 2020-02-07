@@ -113,5 +113,9 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-viewmodel:$archLifecycleVersion"
 
+    // Room Related
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+
 
 }
