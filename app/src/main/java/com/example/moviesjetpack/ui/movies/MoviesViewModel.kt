@@ -17,7 +17,7 @@ import retrofit2.Response
 class MoviesViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
     var listMovies = MutableLiveData<ArrayList<MoviesEntity>>()
-    lateinit var moviesNavigator : MoviesNavigator
+    private lateinit var moviesNavigator : MoviesNavigator
     lateinit var movieServices :RetrofitServices
 
     fun setNavigator(moviesNavigator: MoviesNavigator){

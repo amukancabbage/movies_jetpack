@@ -46,21 +46,22 @@ class MoviesFragment : Fragment(),MoviesNavigator {
         val view: View = binding.root
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
 
-        progressBar?.visibility  = View.VISIBLE
         val factory = ViewModelFactory.getInstance(requireActivity())
         viewModel = ViewModelProvider(this, factory)[MoviesViewModel::class.java]
         viewModel.setNavigator(this)
         viewModel.getMovies()
         viewModel.getMoviesLiveData().observe(viewLifecycleOwner, Observer { moviesEntity ->
             binding.recyclerView.adapter = MoviesAdapter(moviesEntity, viewModel)
-            progressBar?.visibility  = View.VISIBLE
+            progressBar?.visibility  = View.GONE
         })
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        progressBar = view.findViewById(R.id.progress_bar)
+        progressBar = view.findViewById(R.id.progress_bar)
+        progressBar?.visibility  = View.VISIBLE
+
     }
 
 }

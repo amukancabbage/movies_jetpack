@@ -32,9 +32,7 @@ class MoviesAdapter() : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
         holder.setBinding(moviesEntity, viewModel)
     }
 
-    override fun getItemCount(): Int {
-        return mMovies.size
-    }
+    override fun getItemCount() = mMovies.size
 
 
     inner class MoviesViewHolder constructor(val binding: ItemsMoviesBinding) : RecyclerView.ViewHolder(binding.root){

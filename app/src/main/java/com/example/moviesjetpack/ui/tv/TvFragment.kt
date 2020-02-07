@@ -48,14 +48,13 @@ class TvFragment : Fragment(), TvNavigator {
         val view: View = binding.root
         binding.recyclerViewTv.layoutManager = LinearLayoutManager(activity)
 
-        progressBar?.visibility  = View.VISIBLE
         val factory = ViewModelFactory.getInstance(requireActivity())
         viewModel = ViewModelProvider(this, factory)[TvViewModel::class.java]
         viewModel.setNavigator(this)
         viewModel.getTvs()
         viewModel.getTvLiveData().observe(viewLifecycleOwner, Observer { tvEntity ->
             binding.recyclerViewTv.adapter = TvAdapter(tvEntity, viewModel)
-            progressBar?.visibility  = View.VISIBLE
+            progressBar?.visibility  = View.GONE
         })
 
         return view
@@ -63,7 +62,9 @@ class TvFragment : Fragment(), TvNavigator {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        progressBar = view.findViewById(R.id.progress_bar)
+        progressBar = view.findViewById(R.id.progress_bar_tv)
+        progressBar?.visibility  = View.VISIBLE
+
     }
 
 }

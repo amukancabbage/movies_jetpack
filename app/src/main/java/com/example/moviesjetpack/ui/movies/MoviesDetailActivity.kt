@@ -23,7 +23,7 @@ class MoviesDetailActivity : AppCompatActivity() {
         window.requestFeature(Window.FEATURE_ACTION_BAR);
         actionBar?.hide()
         databinding = DataBindingUtil.setContentView(this,R.layout.activity_movies_detail)
-        var moviesEntity = intent.getParcelableExtra<MoviesEntity>(EXTRA_DATA)
+        val moviesEntity = intent.getParcelableExtra<MoviesEntity>(EXTRA_DATA)
         databinding.movieEntity = moviesEntity
 
     }

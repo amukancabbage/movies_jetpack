@@ -32,9 +32,7 @@ class TvAdapter() : RecyclerView.Adapter<TvAdapter.TvViewHolder>() {
         holder.setBinding(tvEntity, viewModel)
     }
 
-    override fun getItemCount(): Int {
-        return mTv.size
-    }
+    override fun getItemCount() = mTv.size
 
 
     inner class TvViewHolder constructor(val binding: ItemsTvBinding) : RecyclerView.ViewHolder(binding.root){

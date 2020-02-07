@@ -10,7 +10,7 @@ import com.example.moviesjetpack.utils.DataDummy
 class TvViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
     var listTv = MutableLiveData<ArrayList<TvEntity>>()
-    lateinit var tvNavigator : TvNavigator
+    private lateinit var tvNavigator : TvNavigator
 
     fun setNavigator(tvNavigator: TvNavigator){
         this.tvNavigator = tvNavigator
